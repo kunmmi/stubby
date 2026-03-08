@@ -70,39 +70,66 @@
       color: var(--accent);
     }
 
+    .hero-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      background: #0a0a0f url("WhatsApp Image 2026-03-08 at 18.51.21 (1).jpeg") center / cover no-repeat;
+      filter: url(#flagWave);
+      will-change: filter;
+    }
+
+    .hero-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(10, 10, 15, 0.35) 0%, rgba(10, 10, 15, 0.12) 35%, transparent 70%);
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 2;
+    }
+
     .hero {
-      min-height: 100vh;
+      min-height: 200vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: center;
       padding: 4rem 1.5rem;
+      padding-top: 30vh;
       position: relative;
     }
 
-    .hero-image {
-      width: min(320px, 85vw);
-      height: auto;
-      border-radius: 16px;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 60px rgba(255, 61, 0, 0.2);
-      margin-bottom: 2rem;
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
-    .hero h1 {
+    .hero-content h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(3rem, 10vw, 5rem);
       letter-spacing: 0.15em;
       color: var(--accent2);
       margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
-    .hero .tagline {
+    .hero-content .tagline {
       font-size: 1rem;
-      color: var(--muted);
+      color: rgba(245, 245, 245, 0.95);
       max-width: 480px;
       margin-bottom: 2rem;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.7);
     }
 
     .cta {
@@ -127,6 +154,13 @@
       padding: 5rem 2rem;
       max-width: 1100px;
       margin: 0 auto;
+    }
+
+    .about,
+    .gallery-section,
+    .final-cta {
+      background: rgba(10, 10, 15, 0.72);
+      backdrop-filter: blur(8px);
     }
 
     section h2 {
@@ -190,10 +224,21 @@
       color: var(--muted);
       font-size: 0.8rem;
       border-top: 1px solid var(--surface);
+      background: rgba(10, 10, 15, 0.8);
     }
   </style>
 </head>
 <body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="flagWave" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="2" result="noise" seed="1">
+          <animate attributeName="baseFrequency" values="0.015 0.03;0.025 0.05;0.015 0.03" dur="18s" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
   <div class="noise" aria-hidden="true"></div>
 
   <header>
@@ -205,16 +250,15 @@
     </nav>
   </header>
 
-  <main>
+  <main class="page-content">
     <section class="hero">
-      <img
-        class="hero-image"
-        src="WhatsApp Image 2026-03-08 at 18.51.21 (1).jpeg"
-        alt="Stubby mascot"
-      />
-      <h1>Stubby</h1>
-      <p class="tagline">Short in name. Long on gains.</p>
-      <a href="#buy" class="cta">Buy $STUBBY</a>
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1>Stubby</h1>
+        <p class="tagline">Short in name. Long on gains.</p>
+        <a href="#buy" class="cta">Buy $STUBBY</a>
+      </div>
     </section>
 
     <section id="about" class="about">
